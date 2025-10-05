@@ -20,19 +20,22 @@ public class BookingFlowTest extends BaseTest {
 		// 2. Click a button that triggers alert
 		driver.findElement(By.xpath("//button[text()='Simple Alert']")).click();
 
+		// 3.Handling the alert
 		Alert alert = driver.switchTo().alert();
 		System.out.println("Alert says: " + alert.getText());
 		alert.accept();
 
+		//4. Handling multiple windows
 		String mainWindow = driver.getWindowHandle();
 
-		driver.findElement(By.linkText("Popup Windows")).click();
+		driver.findElement(By.xpath("//button[text()='Popup Windows']")).click();
 
 		Set<String> windows = driver.getWindowHandles();
 		for (String w: windows) {
 			if(!w.equals(mainWindow)){
 				driver.switchTo().window(w);
-				driver.findElement(By.xpath("//*[@id=\"docsearch-1\"]/button/span[1]/span")).sendKeys("hello from new window");
+				//Using class & text
+				driver.findElement(By.xpath("//span[@class='DocSearch-Button-Placeholder' and text()='Search']"));				
 				driver.close();
 			}
 		}
