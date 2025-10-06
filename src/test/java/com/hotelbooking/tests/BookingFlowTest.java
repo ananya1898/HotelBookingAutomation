@@ -3,45 +3,60 @@ package com.hotelbooking.tests;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import com.hotelbooking.base.BaseTest;
+import com.hotelbooking.pages.AlertPage;
+import com.hotelbooking.pages.HomePage;
 
 public class BookingFlowTest extends BaseTest {
 
+	HomePage home = new HomePage(driver);
+	AlertPage alert = new AlertPage(driver);
+
 	@Test
-	public void testHotelBookingFlow() throws InterruptedException {
+	public void testFillingDetails() throws InterruptedException {
 
-		// 1. Fill name and email fields
-		driver.findElement(By.id("name")).sendKeys("Testing Name");
-		driver.findElement(By.id("email")).sendKeys("test@test.com");
-
-		// 2. Click a button that triggers alert
-		driver.findElement(By.xpath("//button[text()='Simple Alert']")).click();
-
-		// 3.Handling the alert
-		Alert alert = driver.switchTo().alert();
-		System.out.println("Alert says: " + alert.getText());
-		alert.accept();
-
-		//4. Handling multiple windows
-		String mainWindow = driver.getWindowHandle();
-
-		driver.findElement(By.xpath("//button[text()='Popup Windows']")).click();
-
-		Set<String> windows = driver.getWindowHandles();
-		for (String w: windows) {
-			if(!w.equals(mainWindow)){
-				driver.switchTo().window(w);
-				//Using class & text
-				driver.findElement(By.xpath("//span[@class='DocSearch-Button-Placeholder' and text()='Search']"));				
-				driver.close();
-			}
-		}
+		home.enterDetails("Test", "test@test.com");
 		
-		driver.switchTo().window(mainWindow);
-
 	}
 
+	@Test
+	public void testConfirmationAlertButton() throws InterruptedException {
+		
+		home.clickConfirmationAlertButton();
+		alert.acceptAlert();
+		home.clickConfirmationAlertButton();
+		alert.dismissAlert();
+		
+	}
+	
+	@Test
+	public void testPromptAlertButton() throws InterruptedException {
+		
+		home.clickPromptAlertButton();
+		alert.enterPromptDetails("test");
+
+		
+	}
+
+	// 4. Handling multiple windows
+//	String mainWindow = driver.getWindowHandle();
+//
+//	driver.findElement(By.xpath("//button[text()='Popup Windows']")).click();
+//
+//	Set<String> windows = driver.getWindowHandles();for(
+//	String w:windows)
+//	{
+//		if (!w.equals(mainWindow)) {
+//			driver.switchTo().window(w);
+//			// Using class & text
+//			driver.findElement(By.xpath("//span[@class='DocSearch-Button-Placeholder' and text()='Search']"));
+//			driver.close();
+//		}
+//	}
+//
+//	driver.switchTo().window(mainWindow);
+
 }
+
