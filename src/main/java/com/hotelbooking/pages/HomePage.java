@@ -1,6 +1,5 @@
 package com.hotelbooking.pages;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,6 +13,7 @@ public class HomePage {
 	By PromptAlert = By.xpath("//button[text()='Prompt Alert']");
 	By popupLink = By.linkText("//button[text()='Popup Windows]");
 	By tableSection = By.id("HTML1");
+	By genderRadioButton = By.xpath("//label//div//input[value='female']");
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;

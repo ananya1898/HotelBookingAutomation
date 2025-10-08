@@ -12,7 +12,6 @@ public class AlertPage {
 	}
 	
 	public String acceptAlert() {
-		
 		Alert alert = driver.switchTo().alert();
 		String text = alert.getText();
 		alert.accept();
@@ -21,7 +20,6 @@ public class AlertPage {
 	}
 	
 	public String dismissAlert() {
-		
 		Alert alert = driver.switchTo().alert();
 		String text = alert.getText();
 		alert.dismiss();
@@ -30,11 +28,10 @@ public class AlertPage {
 	}
 	
 	public String enterPromptDetails(String input) {
-
 		Alert alert = driver.switchTo().alert();
 		alert.sendKeys(input);
-		alert.accept();
 		String text = alert.getText();
+		alert.accept();
 		return text;
 	
 	}
